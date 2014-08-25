@@ -3587,7 +3587,7 @@ void AudioPolicyManagerBase::HwModule::dump(int fd)
     result.append(buffer);
     write(fd, result.string(), result.size());
     if (mOutputProfiles.size()) {
-        write(fd, "  - outputs:\n", sizeof("  - outputs:\n"));
+        write(fd, "  - outputs:\n", sizeof("  - outputs:\n") - 1);
         for (size_t i = 0; i < mOutputProfiles.size(); i++) {
             snprintf(buffer, SIZE, "    output %d:\n", i);
             write(fd, buffer, strlen(buffer));
@@ -3595,7 +3595,7 @@ void AudioPolicyManagerBase::HwModule::dump(int fd)
         }
     }
     if (mInputProfiles.size()) {
-        write(fd, "  - inputs:\n", sizeof("  - inputs:\n"));
+        write(fd, "  - inputs:\n", sizeof("  - inputs:\n") - 1);
         for (size_t i = 0; i < mInputProfiles.size(); i++) {
             snprintf(buffer, SIZE, "    input %d:\n", i);
             write(fd, buffer, strlen(buffer));
