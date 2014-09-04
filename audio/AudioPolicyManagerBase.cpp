@@ -611,10 +611,10 @@ audio_io_handle_t AudioPolicyManagerBase::getOutput(AudioSystem::stream_type str
             !isNonOffloadableEffectEnabled()) &&
             flags & AUDIO_OUTPUT_FLAG_DIRECT) {
         profile = getProfileForDirectOutput(device,
-                                            samplingRate,
-                                            format,
-                                            channelMask,
-                                            (audio_output_flags_t)flags);
+                                           samplingRate,
+                                           format,
+                                           channelMask,
+                                           (audio_output_flags_t)flags);
     }
 
     if (profile != NULL) {
@@ -1541,16 +1541,6 @@ bool AudioPolicyManagerBase::isOffloadSupported(const audio_offload_info_t& offl
         //do not check duration for other audio formats, e.g. dolby AAC/AC3 and amrwb+ formats
         if (offloadInfo.format == AUDIO_FORMAT_MP3 || offloadInfo.format == AUDIO_FORMAT_AAC)
             return false;
-    }
-
-    // Do not allow offloading if one non offloadable effect is enabled. This prevents from
-    // creating an offloaded track and tearing it down immediately after start when audioflinger
-    // detects there is an active non offloadable effect.
-    // FIXME: We should check the audio session here but we do not have it in this context.
-    // This may prevent offloading in rare situations where effects are left active by apps
-    // in the background.
-    if (isNonOffloadableEffectEnabled()) {
-        return false;
     }
 
     // Do not allow offloading if one non offloadable effect is enabled. This prevents from
