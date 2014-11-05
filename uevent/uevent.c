@@ -50,7 +50,7 @@ int uevent_init()
 
     memset(&addr.nl, 0, sizeof(addr.nl));
     addr.nl.nl_family = AF_NETLINK;
-    addr.nl.nl_pid = getpid();
+    addr.nl.nl_pid = 0;
     addr.nl.nl_groups = 0xffffffff;
 
     s = socket(PF_NETLINK, SOCK_DGRAM, NETLINK_KOBJECT_UEVENT);
